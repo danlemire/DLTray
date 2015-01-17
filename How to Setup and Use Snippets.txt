@@ -36,72 +36,22 @@ Codes from AutoIT
 16) When using Snippets, hit key command which opens the snippets window. Choose the snippet you want using the mouse wheel and click OR type the entire name of the snipper OR but NOT the scroll bar OR click "Select a Snippet" from the systray icon.
 
 
+Encryption
 
-TO SET UP ENCRYPTION
-1) Be sure that encryption is disabled
-
-2) Close the DLTray program
-
-3) Edit the DLTray.ini and set encryptionValue= and set encryptionEnabled=False
+Choose "Encryption" on the menu and enter your desired encryption key.  The key is encrypted and then stored in the local system's registry.  Be sure to make note of the encryption key because otherwise your wildcard snippets will be lost and unusable if DLtray is moved to another system.
 
 
 
-ENCRYPTION - OLD
-1) Start DLTray.exe
+Run DLTray as Admin
 
-14) Choose Manage Snippets and choose "wildcards" from Languages
-
-1) 
-
-15) Passwords can be stored in "Wildcards" and they will be automatically encrypted. The tags are not encrypted, but the content is.
-
-16) Open DLTray.ini to change encryption value
-
-17) Add a long string to the encryptionvalue= (Choose a long string). Save the file.
-
-18) If you accidentally turn off encryption and cancel the message box, do not turn on the encryption again! Close the program, edit DLTray.ini manually and set the encryptionEnabled=True to False
-
-19) If you double encrypt things on accident, restore the DLsnippets-blank.ini.enc.back
-
-20) If you lose all the encrypted files, restore the DLsnippets-blank.ini
+- Create a scheduled task
+	* General : Run only when user is logged on, run with highest privileges
+	* Triggers: At logon of your username 
+	* Action  : Start a program: C:\DLtray\DLtray.exe | Start in: C:\DLtray\
+	* Settings: Allow Task to be run on-demand, do not start a new instance, make sure stop task is unchecked.
 
 
-ENCRYPTION - CORRECT
-1) Run DLTray.exe
-
-2) Turn on encryption from the list
-
-3) Set the encryption phrase password when asked
-
-4) confirm that encryption is on. A checkmark should show next to the word
-
-5) Choose Manage Snippets and Language Wildcards. You should be able to see your values in plain text
-
-6) Add whatever values you like to the wildcards language
-
-7) Click OK to save them
-
-99) Toggle encryption off and on to ensure that it is working
-
-
-WILDCARD EXECUTION
-1) 
-
-
-NEW INFO FROM DANIEL ABOUT SNIPPETS ENCRYPTION
-I figured out how to resolve it… I haven’t done any code changes yet, but I think I figured out where the problem is code wise.  
-
-Anyway here are the steps to fix encryption bugs that inhibit the use of wildcards:
-
-- Close DLTray
-- update dltray.ini to start with encryption off, and encryption string empty
-- click to enable encryption
-- enter encryption key as requested
-- click to disable encryption, enter the encryption key as requested again to decrypt
-- start entering wildcards, they should now work without encryption.  This way you will have clear text of your wildcards.  Save this file somewhere safe as a backup if you want, otherwise…
-- to use encryption, re-enable; no entering of key needed since it is already saved.
-
-TO RUN ON STARTUP
-Put a shortcut to DLTray.exe in C:\Users\09063168.CORPPVT\AppData\Roaming\Microsoft\Windows\Start Menu\Programs
-
-
+- In SlickRun add a new magicword, dltray. 
+*Filename: schtasks
+*Startup Path: C:\Windows\System32\
+*Parameter:  /run /TN "DLTray as Admin"
